@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>团建场地预约平台</title>
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="brand">
+        <img src="https://cdn.jsdelivr.net/gh/tabler/tabler-icons/icons/building-community.svg" alt="logo" width="28" />
+        团建场地预约平台
+      </div>
+      <div class="actions">
+        <span class="badge">欢迎，<span id="welcome-name"></span></span>
+        <button class="btn btn-outline" id="logout-btn">退出登录</button>
+        <a class="btn btn-primary" href="/admin.html" id="admin-link" style="display: none;">管理员控制台</a>
+      </div>
+    </div>
+
+    <main class="layout">
+      <section class="hero">
+        <h1>高效预订 · 智慧管理 · 打造极致团建体验</h1>
+        <p>精选城市地标场地，专业服务团队实时跟进，支持在线预约与支付宝支付，让企业团建筹备更省心、更高效。</p>
+        <div>
+          <span class="badge">· 实时库存 · 安全支付 · 管理员全局视图</span>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">热门场地</h2>
+        <div class="grid" id="venue-grid"></div>
+      </section>
+
+      <section>
+        <h2 class="section-title">预约下单</h2>
+        <div class="card">
+          <form id="booking-form">
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+              <div class="form-group">
+                <label for="booking-venue">选择场地</label>
+                <select id="booking-venue" name="venueId" required></select>
+              </div>
+              <div class="form-group">
+                <label for="start-time">开始时间</label>
+                <input type="datetime-local" id="start-time" name="startTime" required />
+              </div>
+              <div class="form-group">
+                <label for="end-time">结束时间</label>
+                <input type="datetime-local" id="end-time" name="endTime" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="notes">备注需求（选填）</label>
+              <textarea id="notes" name="notes" rows="3" placeholder="例如：需要投影仪、茶歇服务等"></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">提交预约</button>
+          </form>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">我的订单</h2>
+        <div class="card table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>场地</th>
+                <th>开始时间</th>
+                <th>结束时间</th>
+                <th>金额</th>
+                <th>状态</th>
+                <th>支付</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="booking-list"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/assets/js/user.js"></script>
+    <script>
+      const currentUser = JSON.parse(localStorage.getItem('current_user') || 'null');
+      if (currentUser?.role === 'admin') {
+        document.getElementById('admin-link').style.display = 'inline-flex';
+      }
+    </script>
+  </body>
+</html>
