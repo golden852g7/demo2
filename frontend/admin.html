@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>管理员控制台 · 团建场地预约平台</title>
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="brand">
+        <img src="https://cdn.jsdelivr.net/gh/tabler/tabler-icons/icons/settings.svg" alt="logo" width="28" />
+        管理员控制台
+      </div>
+      <div class="actions">
+        <a class="btn btn-outline" href="/index.html">返回用户端</a>
+        <button class="btn btn-primary" id="logout-btn">退出登录</button>
+      </div>
+    </div>
+
+    <main class="layout">
+      <section class="hero" style="background: linear-gradient(135deg, #111827 0%, #1d4ed8 100%);">
+        <h1>全局可视化运营后台</h1>
+        <p>实时掌握场地库存、订单状态与支付情况，支持一键配置场地信息与订单生命周期管理。</p>
+        <div>
+          <span class="badge">管理员身份验证通过</span>
+        </div>
+      </section>
+
+      <section>
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2 id="venue-form-title">新增场地</h2>
+            <button class="btn btn-outline" id="reset-venue-form">重置表单</button>
+          </div>
+          <form id="admin-venue-form" class="grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+            <input type="hidden" id="venue-id" name="id" />
+            <div class="form-group">
+              <label>场地名称</label>
+              <input type="text" name="name" required placeholder="例如：星辰创意空间" />
+            </div>
+            <div class="form-group">
+              <label>场地地址</label>
+              <input type="text" name="location" required placeholder="所在城市与详细地址" />
+            </div>
+            <div class="form-group">
+              <label>容纳人数</label>
+              <input type="number" name="capacity" min="1" required />
+            </div>
+            <div class="form-group">
+              <label>价格（元/小时）</label>
+              <input type="number" name="pricePerHour" min="0" step="0.01" required />
+            </div>
+            <div class="form-group">
+              <label>状态</label>
+              <select name="status">
+                <option value="available">可预约</option>
+                <option value="maintenance">维护中</option>
+                <option value="unavailable">暂不可约</option>
+              </select>
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label>展示图片 URL</label>
+              <input type="url" name="imageUrl" placeholder="https://" />
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label>场地亮点</label>
+              <textarea name="description" rows="3" placeholder="输入场地优势、配套设施等信息"></textarea>
+            </div>
+            <div style="grid-column: 1 / -1; display: flex; gap: 12px;">
+              <button class="btn btn-primary" type="submit">保存场地</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">场地列表</h2>
+        <div class="card table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>名称</th>
+                <th>地址</th>
+                <th>容量</th>
+                <th>价格</th>
+                <th>状态</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="admin-venues"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">订单管理</h2>
+        <div class="card table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>用户</th>
+                <th>场地</th>
+                <th>开始时间</th>
+                <th>结束时间</th>
+                <th>金额</th>
+                <th>状态</th>
+                <th>支付</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="admin-bookings"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/assets/js/admin.js"></script>
+  </body>
+</html>
